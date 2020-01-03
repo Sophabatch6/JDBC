@@ -1,39 +1,16 @@
-#language: java
-#addons:
-#  sonarcloud:
-#    organization: "sophabatch6"
-#    token:
-#      secure: cf6a9689ac3cc764aab7cf2d975fe4c47873e12e # encrypted value of your token
-#script:
-  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-#  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=Sophabatch6_JDBC
-#notification:
-#  email: false
 language: java
-sudo: false
-install: true
-
-addons:
-  sonarcloud:
-    organization: "sonarcloud"
-    token:
-      secure: "cf6a9689ac3cc764aab7cf2d975fe4c47873e12e"
-
-jdk:
-  - oraclejdk8
-
-script:
-  # JaCoCo is used to have code coverage, "-Pcoverage" activates the maven profile in the pom.xml
-  - mvn clean verify sonar:sonar -Pcoverage 
-
-cache:
-  directories:
-    - '$HOME/.m2/repository'
-    - '$HOME/.sonar/cache'
-
-# Don't copy the following part if you're using this project as a starting point of yours
-notifications:
-  email: false
-  webhooks:
-    - secure: "YnouVsvmF9gDFMT9s8MQsHe5ARaO78SvNeU+MzGKB+l7we7Xge5Zmi6J1KOuOW7zoKkb/wCnUvs+wu9qr4K0VgmWb2wBOpO2c5p85GrSYjPKGwfeZHSmGUpHUoNeDNa32StbTn7oOqtisTbcCWAM3fCPK/HW2l6Mh6eLSsqrlXwCYek2NWWfNeWX0tw22ctMGX6c2I200mGtU3SxPLvzg6MC9AbJ5/VnMkr0tzJnJdQWFGP6Iv6kNBb982tijbdBiriUX6964IPC4XSboK/KFRoHEfxaQuB8rcc64ar4Yr0UIB7Cz2DY4hKi6XaC5RT0O10rfFbCf6UInpzsz2CC4ZMU2Tpnpew/Y7VxhDBXLdq3pkvZS8UXj9J5ivaTJeCIidfoxw7NF8ctPtgIvUI5SoC1V7bjMPTvTTFz7vqtvCUZbAecQgM88MKGyYPD2g4HxzGL7vCGfPSOCMsxySemBkBElqPvDRVLrDNNPJNEkUZ/yQxaFCZpITPD787MyKjeI9NlkG3htZ+i8t2BYmQj28JzoADY+wsdufK8WlkWANISfFyEzyo+JlOoXGX/gfHWpWhaWn3klIDm8LED3FM4/wNRT6yg8BZ1BEQ6D6RSG5SrhYwJPRr6bFzh7MA3+mkO7GW5SVZNVX2Q0qmigmKd6cJBGD3/V0r74LtwRH+sKxI="
-  on_start: always
+ jdk:
+   - openjdk8
+    
+ notifications:
+   email:
+     - false
+   webhooks: 
+     - false
+ jobs:
+   include:
+     - stage: "RUN MY TESTS"
+       script: ./test
+     - stage: "DEPLOY MY APP"
+       if: branch = master
+       script: ./deploy
