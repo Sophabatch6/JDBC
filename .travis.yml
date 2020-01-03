@@ -4,11 +4,11 @@ jdk:
 script:
   - gradle build
 jobs:
-  include:
-    - stage: "RUN MY TESTS"
-      script: ./test
-    - stage: "DEPLOY MY APP"
-      script: ./deploy
+   include:
+     - stage: "Unit Tests & SonarCloud Analysis"
+       script:
+         - gradle jacocoTestReport
+         - gradle sonarqube -Dsonar.login=$Sophabatch6_JDBC -Dsonar.projectKey=$Sophabatch6_JDBC
 addons:
   sonarcloud:
     organization: "sophabatch6"
