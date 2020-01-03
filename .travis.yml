@@ -6,8 +6,6 @@ script:
 jobs:
   include:
     - stage: "RUN MY TESTS"
-      script:
-        - ./test
+      script: ./test
     - stage: "DEPLOY MY APP"
-      script:
-        - ./deploy
+      script: ./deploy
